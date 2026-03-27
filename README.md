@@ -17,7 +17,8 @@ A browser-based **Water Color Sort** puzzle game built with HTML, CSS, and JavaS
 
 ## Features
 
-- 11 progressively harder levels (2 → 12 colors)
+- 50 progressively harder levels (2 → 14 colors)
+- Difficulty tiers: Beginner → Easy → Medium → Challenging → Hard → Expert
 - Undo & restart support
 - Move counter
 - Win detection with next-level prompt

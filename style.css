@@ -128,6 +128,8 @@ h1 {
 .color-gray     { background: #7f8c8d; }
 .color-lime     { background: #a4de02; }
 .color-navy     { background: #2c3e80; }
+.color-coral    { background: #ff6f61; }
+.color-cyan     { background: #00bcd4; }
 
 /* ── Win message ── */
 #win-message {

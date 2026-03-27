@@ -7,28 +7,74 @@
   var COLORS = [
     "red", "blue", "green", "yellow", "purple",
     "orange", "pink", "teal", "brown", "gray",
-    "lime", "navy"
+    "lime", "navy", "coral", "cyan"
   ];
 
   var TUBE_CAPACITY = 4;
 
   /* ──────────────────────────────────────────────
-     Level definitions
+     Level definitions – 50 levels with progressive difficulty
      Each level: { colors: number, emptyTubes: number }
-     Total tubes = colors + emptyTubes
+     Colors ramp from 2 → 14 over 50 levels.
+     emptyTubes starts at 2 and drops to 1 on harder tiers.
   ────────────────────────────────────────────── */
   var LEVELS = [
-    { colors: 2, emptyTubes: 1 },
-    { colors: 3, emptyTubes: 1 },
-    { colors: 4, emptyTubes: 2 },
-    { colors: 5, emptyTubes: 2 },
-    { colors: 6, emptyTubes: 2 },
-    { colors: 7, emptyTubes: 2 },
-    { colors: 8, emptyTubes: 2 },
-    { colors: 9, emptyTubes: 2 },
-    { colors: 10, emptyTubes: 2 },
-    { colors: 11, emptyTubes: 2 },
-    { colors: 12, emptyTubes: 2 }
+    // ── Beginner (Levels 1–5) ──
+    { colors: 2,  emptyTubes: 2 },   // 1
+    { colors: 2,  emptyTubes: 2 },   // 2
+    { colors: 3,  emptyTubes: 2 },   // 3
+    { colors: 3,  emptyTubes: 2 },   // 4
+    { colors: 3,  emptyTubes: 1 },   // 5
+    // ── Easy (Levels 6–12) ──
+    { colors: 4,  emptyTubes: 2 },   // 6
+    { colors: 4,  emptyTubes: 2 },   // 7
+    { colors: 4,  emptyTubes: 1 },   // 8
+    { colors: 5,  emptyTubes: 2 },   // 9
+    { colors: 5,  emptyTubes: 2 },   // 10
+    { colors: 5,  emptyTubes: 1 },   // 11
+    { colors: 6,  emptyTubes: 2 },   // 12
+    // ── Medium (Levels 13–20) ──
+    { colors: 6,  emptyTubes: 2 },   // 13
+    { colors: 6,  emptyTubes: 1 },   // 14
+    { colors: 7,  emptyTubes: 2 },   // 15
+    { colors: 7,  emptyTubes: 2 },   // 16
+    { colors: 7,  emptyTubes: 1 },   // 17
+    { colors: 8,  emptyTubes: 2 },   // 18
+    { colors: 8,  emptyTubes: 2 },   // 19
+    { colors: 8,  emptyTubes: 2 },   // 20
+    // ── Challenging (Levels 21–30) ──
+    { colors: 9,  emptyTubes: 2 },   // 21
+    { colors: 9,  emptyTubes: 2 },   // 22
+    { colors: 9,  emptyTubes: 2 },   // 23
+    { colors: 10, emptyTubes: 2 },   // 24
+    { colors: 10, emptyTubes: 2 },   // 25
+    { colors: 10, emptyTubes: 2 },   // 26
+    { colors: 10, emptyTubes: 2 },   // 27
+    { colors: 11, emptyTubes: 2 },   // 28
+    { colors: 11, emptyTubes: 2 },   // 29
+    { colors: 11, emptyTubes: 2 },   // 30
+    // ── Hard (Levels 31–40) ──
+    { colors: 11, emptyTubes: 2 },   // 31
+    { colors: 12, emptyTubes: 2 },   // 32
+    { colors: 12, emptyTubes: 2 },   // 33
+    { colors: 12, emptyTubes: 2 },   // 34
+    { colors: 12, emptyTubes: 2 },   // 35
+    { colors: 12, emptyTubes: 2 },   // 36
+    { colors: 13, emptyTubes: 2 },   // 37
+    { colors: 13, emptyTubes: 2 },   // 38
+    { colors: 13, emptyTubes: 2 },   // 39
+    { colors: 13, emptyTubes: 2 },   // 40
+    // ── Expert (Levels 41–50) ──
+    { colors: 13, emptyTubes: 2 },   // 41
+    { colors: 13, emptyTubes: 2 },   // 42
+    { colors: 14, emptyTubes: 2 },   // 43
+    { colors: 14, emptyTubes: 2 },   // 44
+    { colors: 14, emptyTubes: 2 },   // 45
+    { colors: 14, emptyTubes: 2 },   // 46
+    { colors: 14, emptyTubes: 2 },   // 47
+    { colors: 14, emptyTubes: 2 },   // 48
+    { colors: 14, emptyTubes: 2 },   // 49
+    { colors: 14, emptyTubes: 2 }    // 50
   ];
 
   /* ──────────────────────────────────────────────
