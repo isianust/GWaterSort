@@ -118,6 +118,13 @@
       attempts++;
     } while (isPuzzleTrivial(segments, numColors) && attempts < 200);
 
+    // Fallback: if still trivial, manually swap the first two segments
+    if (isPuzzleTrivial(segments, numColors) && segments.length >= 2) {
+      var tmp = segments[0];
+      segments[0] = segments[segments.length - 1];
+      segments[segments.length - 1] = tmp;
+    }
+
     // Distribute into tubes
     var result = [];
     for (var t = 0; t < numColors; t++) {
@@ -247,6 +254,13 @@
   function showWin() {
     winDetails.textContent = "Completed in " + moves + " move" + (moves !== 1 ? "s" : "") + "!";
     winMessage.classList.remove("hidden");
+
+    // Hide "Next Level" if all levels are done
+    if (currentLevel >= LEVELS.length - 1) {
+      nextLevelBtn.textContent = "Play Again";
+    } else {
+      nextLevelBtn.textContent = "Next Level";
+    }
   }
 
   function startLevel(levelIndex) {
@@ -263,7 +277,11 @@
      Event listeners
   ────────────────────────────────────────────── */
   nextLevelBtn.addEventListener("click", function () {
-    startLevel(currentLevel + 1);
+    if (currentLevel >= LEVELS.length - 1) {
+      startLevel(0); // Restart from level 1
+    } else {
+      startLevel(currentLevel + 1);
+    }
   });
 
   restartBtn.addEventListener("click", function () {
