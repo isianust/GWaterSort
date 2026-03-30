@@ -7,10 +7,24 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="game-container">
-    <h1>Water Color Sort</h1>
+
+  <!-- ═══ Homepage / Level Select ═══ -->
+  <div id="homepage">
+    <h1>💧 Water Color Sort</h1>
+    <p id="total-levels-info"></p>
+    <p id="progress-info"></p>
+    <div id="level-grid"></div>
+  </div>
+
+  <!-- ═══ Game View ═══ -->
+  <div id="game-container" class="hidden">
+    <div id="game-header">
+      <button id="back-btn">← Levels</button>
+      <h1>Water Color Sort</h1>
+    </div>
     <div id="status-bar">
       <span id="level-display">Level: 1</span>
+      <span id="difficulty-display">Difficulty: ★</span>
       <span id="moves-display">Moves: 0</span>
     </div>
     <div id="tubes-container"></div>
@@ -24,6 +38,7 @@
       <button id="restart-btn">Restart Level</button>
     </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
