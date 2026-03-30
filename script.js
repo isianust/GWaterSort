@@ -9,6 +9,32 @@
   var MAX_LEVELS = 65536;
   var STORAGE_KEY = "waterSortProgress";
 
+  /* Color generation tuning */
+  var COLOR_SAT_MIN = 55;
+  var COLOR_SAT_RANGE = 40;    // saturation: 55–95%
+  var COLOR_LIT_MIN = 35;
+  var COLOR_LIT_RANGE = 30;    // lightness: 35–65%
+
+  /* Difficulty tuning */
+  var DIFFICULTY_COLOR_DIVISOR = 8;
+  var MAX_COLORS = 20;
+  var HIGH_DIFFICULTY_THRESHOLD = 60;
+
+  /* Animation constants (pixels & milliseconds) */
+  var SEGMENT_HEIGHT_PX = 38;
+  var RISE_OFFSET_PX = 50;
+  var DROP_HOVER_OFFSET_PX = 30;
+  var INITIAL_DROP_OFFSET_PX = 10;
+  var DROP_HALF_WIDTH_PX = 20;
+  var DROP_WIDTH_PX = 40;
+  var RISE_DURATION_MS = 250;
+  var MOVE_DURATION_MS = 400;
+  var DROP_DURATION_MS = 300;
+  var ANIMATION_EASING = "cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+
+  /* Shuffle */
+  var MAX_SHUFFLE_ATTEMPTS = 200;
+
   /* ══════════════════════════════════════════════
      Random Color Generation (full 16M RGB space)
      Generates visually distinct colors using
@@ -59,8 +85,8 @@
     var baseHue = rng() * 360;
     for (var i = 0; i < count; i++) {
       var hue = (baseHue + i * goldenAngle + rng() * 15) % 360;
-      var sat = 55 + rng() * 40;   // 55–95%
-      var lit = 35 + rng() * 30;   // 35–65%
+      var sat = COLOR_SAT_MIN + rng() * COLOR_SAT_RANGE;
+      var lit = COLOR_LIT_MIN + rng() * COLOR_LIT_RANGE;
       colors.push(hslToHex(hue, sat, lit));
     }
     return colors;
@@ -100,10 +126,10 @@
   function getLevelConfig(levelNum) {
     var diff = getDifficulty(levelNum);
     // Colors: start at 2, ramp up based on difficulty
-    var numColors = Math.min(2 + Math.floor(diff / 8), 20);
+    var numColors = Math.min(2 + Math.floor(diff / DIFFICULTY_COLOR_DIVISOR), MAX_COLORS);
     if (numColors < 2) numColors = 2;
     // Empty tubes: start at 2, reduce at higher difficulties
-    var emptyTubes = diff > 60 ? 1 : 2;
+    var emptyTubes = diff > HIGH_DIFFICULTY_THRESHOLD ? 1 : 2;
     return { colors: numColors, emptyTubes: emptyTubes };
   }
 
@@ -267,7 +293,7 @@
     do {
       shuffle(segments);
       attempts++;
-    } while (isPuzzleTrivial(segments, numColors) && attempts < 200);
+    } while (isPuzzleTrivial(segments, numColors) && attempts < MAX_SHUFFLE_ATTEMPTS);
 
     if (isPuzzleTrivial(segments, numColors) && segments.length >= 2) {
       var tmp = segments[0];
@@ -348,32 +374,32 @@
       var drop = document.createElement("div");
       drop.className = "water-drop";
       drop.style.backgroundColor = levelColors[colorIdx];
-      drop.style.width = "40px";
-      drop.style.height = (amount * 38) + "px";
+      drop.style.width = DROP_WIDTH_PX + "px";
+      drop.style.height = (amount * SEGMENT_HEIGHT_PX) + "px";
 
       // Position at the top of source tube
       drop.style.position = "fixed";
-      drop.style.left = (srcRect.left + srcRect.width / 2 - 20) + "px";
-      drop.style.top = (srcRect.top - 10) + "px";
+      drop.style.left = (srcRect.left + srcRect.width / 2 - DROP_HALF_WIDTH_PX) + "px";
+      drop.style.top = (srcRect.top - INITIAL_DROP_OFFSET_PX) + "px";
       drop.style.zIndex = "1000";
       drop.style.borderRadius = "8px";
       drop.style.opacity = "0.9";
-      drop.style.transition = "all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+      drop.style.transition = "all " + (MOVE_DURATION_MS / 1000) + "s " + ANIMATION_EASING;
       document.body.appendChild(drop);
 
       // Phase 1: Rise up from source
       requestAnimationFrame(function () {
-        drop.style.top = (srcRect.top - 50) + "px";
+        drop.style.top = (srcRect.top - RISE_OFFSET_PX) + "px";
 
         setTimeout(function () {
           // Phase 2: Move to destination
-          drop.style.left = (dstRect.left + dstRect.width / 2 - 20) + "px";
-          drop.style.top = (dstRect.top - 30) + "px";
+          drop.style.left = (dstRect.left + dstRect.width / 2 - DROP_HALF_WIDTH_PX) + "px";
+          drop.style.top = (dstRect.top - DROP_HOVER_OFFSET_PX) + "px";
 
           setTimeout(function () {
             // Phase 3: Drop into destination
-            var dstWaterHeight = tubes[dstIdx].length * 40;
-            drop.style.top = (dstRect.bottom - dstWaterHeight - amount * 38) + "px";
+            var dstWaterHeight = tubes[dstIdx].length * SEGMENT_HEIGHT_PX;
+            drop.style.top = (dstRect.bottom - dstWaterHeight - amount * SEGMENT_HEIGHT_PX) + "px";
             drop.style.opacity = "0.6";
 
             setTimeout(function () {
@@ -381,9 +407,9 @@
                 drop.parentNode.removeChild(drop);
               }
               resolve();
-            }, 300);
-          }, 400);
-        }, 250);
+            }, DROP_DURATION_MS);
+          }, MOVE_DURATION_MS);
+        }, RISE_DURATION_MS);
       });
     });
   }
