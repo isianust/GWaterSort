@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Water Color Sort</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💧</text></svg>" />
+  </head>
+  <body>
+
+    <!-- ═══ Homepage / Level Select ═══ -->
+    <div id="homepage">
+      <h1>💧 Water Color Sort</h1>
+      <p id="total-levels-info"></p>
+      <p id="progress-info"></p>
+      <div id="level-grid"></div>
+    </div>
+
+    <!-- ═══ Game View ═══ -->
+    <div id="game-container" class="hidden">
+      <div id="game-header">
+        <button id="back-btn">← Levels</button>
+        <h1>Water Color Sort</h1>
+      </div>
+      <div id="status-bar">
+        <span id="level-display">Level: 1</span>
+        <span id="difficulty-display">Difficulty: ★</span>
+        <span id="moves-display">Moves: 0</span>
+      </div>
+      <div id="tubes-container"></div>
+      <div id="win-message" class="hidden">
+        <h2>🎉 You Win!</h2>
+        <p id="win-details"></p>
+        <button id="next-level-btn">Next Level</button>
+      </div>
+      <div id="controls">
+        <button id="undo-btn">Undo</button>
+        <button id="restart-btn">Restart Level</button>
+      </div>
+    </div>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
