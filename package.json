@@ -1,0 +1,40 @@
+{
+  "name": "gwatersort",
+  "version": "1.0.0",
+  "description": "A browser-based Water Color Sort puzzle game built with TypeScript and Vite.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "lint": "eslint src/ tests/",
+    "lint:fix": "eslint src/ tests/ --fix",
+    "format": "prettier --write \"src/**/*.{ts,css,html}\" \"tests/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.{ts,css,html}\" \"tests/**/*.ts\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isianust/GWaterSort.git"
+  },
+  "keywords": ["game", "puzzle", "water-sort", "typescript", "vite"],
+  "author": "Ian Siu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/isianust/GWaterSort/issues"
+  },
+  "homepage": "https://github.com/isianust/GWaterSort#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.58.0",
+    "@typescript-eslint/parser": "^8.58.0",
+    "eslint": "^10.1.0",
+    "jsdom": "^29.0.1",
+    "prettier": "^3.8.1",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3",
+    "vitest": "^4.1.2"
+  }
+}
