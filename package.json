@@ -20,7 +20,13 @@
     "type": "git",
     "url": "git+https://github.com/isianust/GWaterSort.git"
   },
-  "keywords": ["game", "puzzle", "water-sort", "typescript", "vite"],
+  "keywords": [
+    "game",
+    "puzzle",
+    "water-sort",
+    "typescript",
+    "vite"
+  ],
   "author": "Ian Siu",
   "license": "MIT",
   "bugs": {
@@ -30,6 +36,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.58.0",
     "@typescript-eslint/parser": "^8.58.0",
+    "@vitest/coverage-v8": "^4.1.2",
     "eslint": "^10.1.0",
     "jsdom": "^29.0.1",
     "prettier": "^3.8.1",
